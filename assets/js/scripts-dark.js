@@ -130,8 +130,42 @@ Version      : 1.0
 			transitionStyle:"backSlide",
 			autoPlay:true
 		});
-		/*END TESTIMONIAL*/				
-			
+		/*END TESTIMONIAL*/		
+		
+		/* START CONTACT FORM AJAX */
+		$('#contact-form').on('submit', function (e) {
+			e.preventDefault(); // stop page reload
+
+			const form = this;
+			const formData = new FormData(form);
+
+			fetch(form.action, {
+				method: 'POST',
+				body: formData,
+				headers: {
+				'Accept': 'application/json'
+				}
+			})
+			.then(response => {
+				if (response.ok) {
+					$('#success-overlay').removeClass('hidden');
+					form.reset(); // clear all fields
+
+					// Optional: auto-close after 3 seconds
+					setTimeout(function () {
+						$('#success-overlay').addClass('hidden');
+					}, 3000);
+
+				} else {
+					alert('Oops! Something went wrong. Please try again.');
+				}
+
+			})
+			.catch(() => {
+				alert('Network error. Please try again later.');
+			});
+		});
+		/* END CONTACT FORM AJAX */
 	}); 			
 		
 	/*START WOW ANIMATION JS*/
