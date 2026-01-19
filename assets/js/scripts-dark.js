@@ -119,6 +119,20 @@ Version      : 1.0
 		});
 		/* END EXPERIENCE TABS JS */
 
+		/* START REFERRALS */
+		$(".curated-carousel").owlCarousel({
+			items: 3,
+			itemsDesktop: [1199, 3],
+			itemsDesktopSmall: [979, 2],
+			itemsTablet: [768, 2],
+			itemsMobile: [600, 1],
+			pagination: false,
+			navigation: true,
+			navigationText: ["",""],
+			slideSpeed: 1000,
+			autoPlay: false
+		});
+		/* END REFERRALS */
 
 		/*START TESTIMONIAL*/
 		$("#testimonial-slider").owlCarousel({
@@ -166,6 +180,73 @@ Version      : 1.0
 			});
 		});
 		/* END CONTACT FORM AJAX */
+
+		function getAverageEdgeColor(img) {
+	const canvas = document.createElement('canvas');
+	const ctx = canvas.getContext('2d');
+
+	const size = 64;
+	canvas.width = size;
+	canvas.height = size;
+
+	ctx.drawImage(img, 0, 0, size, size);
+
+	const imageData = ctx.getImageData(0, 0, size, size).data;
+
+	let r = 0, g = 0, b = 0, count = 0;
+
+	// sample edge pixels only
+	for (let y = 0; y < size; y++) {
+		for (let x = 0; x < size; x++) {
+			const isEdge =
+				x < 6 || x > size - 7 || y < 6 || y > size - 7;
+
+			if (!isEdge) continue;
+
+			const i = (y * size + x) * 4;
+			const alpha = imageData[i + 3];
+
+			// ignore transparent pixels
+			if (alpha < 100) continue;
+
+			r += imageData[i];
+			g += imageData[i + 1];
+			b += imageData[i + 2];
+			count++;
+		}
+	}
+
+	if (count === 0) return 'transparent';
+
+	r = Math.round(r / count);
+	g = Math.round(g / count);
+	b = Math.round(b / count);
+
+	return `rgb(${r}, ${g}, ${b})`;
+}
+
+function applyLogoBackgrounds() {
+	document.querySelectorAll('.referral-logo img').forEach(img => {
+
+		// Ensure image is loaded
+		if (!img.complete) {
+			img.onload = () => applyLogoBackgrounds();
+			return;
+		}
+
+		try {
+			const color = getAverageEdgeColor(img);
+			img.parentElement.style.backgroundColor = color;
+		} catch (e) {
+			// Fail silently (CORS or SVG edge cases)
+			console.warn('Logo color detection failed:', img.src);
+		}
+	});
+}
+
+// Run after page load
+window.addEventListener('load', applyLogoBackgrounds);
+
 	}); 			
 		
 	/*START WOW ANIMATION JS*/
