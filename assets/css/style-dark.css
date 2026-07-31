@@ -1400,3 +1400,101 @@ margin-bottom: -7px;
 .referral-cta:hover {
 	color: #ffffff;
 }
+
+/*
+* ----------------------------------------------------------------------------------------
+* 14. RESPONSIVE TWEAKS
+* ----------------------------------------------------------------------------------------
+*/
+
+/* Tablet and below */
+@media only screen and (max-width: 991px) {
+	/* Hero section: stack image and text nicely */
+	.welcome-area {
+		padding-top: 150px;
+		height: auto;
+	}
+
+	.about_me img {
+		position: static;
+		-webkit-transform: none;
+		    -ms-transform: none;
+		        transform: none;
+		margin: 0 auto 30px;
+		max-width: 70%;
+		height: auto;
+		display: block;
+	}
+
+	.about_me_title {
+		margin-top: 10px;
+		text-align: center;
+	}
+
+	.profile_info {
+		margin-top: 16px;
+		text-align: center;
+	}
+
+	.profile_info span {
+		display: block;
+	}
+
+	.social_profile {
+		text-align: center;
+	}
+}
+
+/* Small devices */
+@media only screen and (max-width: 767px) {
+	.section-padding {
+		padding: 60px 0;
+	}
+
+	.section-title h1 {
+		font-size: 28px;
+	}
+
+	.service_content {
+		margin: 40px 5px;
+		padding: 30px 20px;
+	}
+
+	.timeline-area .single_timeline {
+		padding: 30px 20px;
+	}
+
+	.single_blog_dsc {
+		padding: 25px 20px;
+	}
+
+	.address {
+		padding: 60px 30px;
+	}
+}
+
+/* Extra-small devices */
+@media only screen and (max-width: 575px) {
+	.about_me_title h1 {
+		font-size: 32px;
+	}
+
+	.about_me_title h4 {
+		font-size: 20px;
+	}
+
+	.profile_info span {
+		font-size: 13px;
+	}
+
+	.footer_social ul li a {
+		display: block;
+		margin: 5px 0;
+	}
+
+	/* Keep circular badges from overlapping too much */
+	.service_content span,
+	.referral-logo {
+		top: -30px;
+	}
+}
